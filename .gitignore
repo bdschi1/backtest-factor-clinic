@@ -1,3 +1,4 @@
+# --- Python & Build Artifacts ---
 __pycache__/
 *.py[cod]
 *.class
@@ -18,29 +19,25 @@ wheels/
 .installed.cfg
 *.egg
 MANIFEST
+
+# --- Virtual Environments ---
 .env
 .venv
 env/
 venv/
 ENV/
+
+# --- IDE & OS Settings ---
 .DS_Store
-.ipynb_checkpoints
 .vscode/
 .idea/
-instructions_to_run.md
-# ... (your existing list)
-
-# Data files (Keep repo lightweight)
-among_synth.csv
-temp_data.csv
-temp_dashboard_data.csv
-private_notes/
-private_notes/
-private_notes/
-__pycache__/
-*.DS_Store
-*.egg-info/
 .ipynb_checkpoints/
+
+# --- Private / Sensitive ---
+private_notes/
+
+# --- Large Data Files (Keep Repo Lightweight) ---
 among_synth.csv
 temp_data.csv
 temp_dashboard_data.csv
+instructions_to_run.md
