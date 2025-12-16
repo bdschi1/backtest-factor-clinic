@@ -1,0 +1,42 @@
+[build-system]
+requires = ['setuptools>=61.0']
+build-backend = 'setuptools.build_meta'
+
+[project]
+name = 'backtest-factor-clinic'
+version = '0.1.0'
+description = 'Diagnostic toolkit for backtest errors'
+readme = 'README.md'
+requires-python = '>=3.9'
+license = {file = 'LICENSE'}
+authors = [{name = 'Brad Schonhoft', email = 'your.email@example.com'}]
+dependencies = [
+    'pandas>=2.0.0',
+    'numpy>=1.24.0',
+    'scikit-learn>=1.3.0',
+    'scipy>=1.10.0',
+]
+
+[project.optional-dependencies]
+dev = [
+    'pytest>=7.4.0',
+    'black>=23.0.0',
+    'ruff>=0.1.0',
+    'jupyterlab>=4.0.0',
+    'jupytext>=1.15.0',
+]
+
+[tool.setuptools]
+packages = []
+
+[tool.ruff]
+line-length = 88
+target-version = 'py310'
+
+[tool.ruff.lint]
+select = ['E', 'F', 'I', 'W']
+ignore = ['E501']
+
+[tool.black]
+line-length = 88
+target-version = ['py310']

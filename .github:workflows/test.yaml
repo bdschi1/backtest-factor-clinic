@@ -1,0 +1,59 @@
+name: Quant CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11"]
+
+    steps:
+    # 1. Check out the repository code
+    - uses: actions/checkout@v3
+
+    # 2. Set up Python environment
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    # 3. Install dependencies (using pyproject.toml)
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -e ".[dev]"
+
+    # 4. Enforce Code Hygiene (Black & Ruff)
+    - name: Check Code Formatting (Black)
+      run: |
+        black --check .
+
+    - name: Lint Code (Ruff)
+      run: |
+        ruff check .
+
+    # 5. Generate Test Data
+    - name: Generate Synthetic Market Data
+      run: |
+        python generate_synth_csv.py
+
+    # 6. Run Integration Tests (The Strategy Pipeline)
+    - name: Run Backtest Suite
+      run: |
+        echo "Running Momentum Strategy..."
+        python notebooks/corrected/01_momentum_lookahead_fixed.py --csv among_synth.csv
+        
+        echo "Running Value Strategy..."
+        python notebooks/corrected/02_value_survivorship_fixed.py --csv among_synth.csv
+        
+        echo "Running Multi-Factor Strategy..."
+        python notebooks/corrected/03_multifactor_overfitting_fixed.py --csv among_synth.csv
+        
+        echo "Running ML Strategy..."
+        python notebooks/corrected/04_ml_leakage_fixed.py --csv among_synth.csv
