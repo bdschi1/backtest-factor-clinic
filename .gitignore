@@ -20,6 +20,7 @@ wheels/
 *.egg
 MANIFEST
 
+
 # --- Virtual Environments ---
 .env
 .venv
@@ -40,4 +41,4 @@ private_notes/
 among_synth.csv
 temp_data.csv
 temp_dashboard_data.csv
-instructions_to_run.md
+instructions_to_run.mdTraining/
